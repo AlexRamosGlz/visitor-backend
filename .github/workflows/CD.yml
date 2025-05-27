@@ -1,0 +1,36 @@
+name: Visitor-backend-CD
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+    branches:
+      - main
+
+env:
+  IMAGE_NAME: ${{vars.DOCKER_HUB_USERNAME}}/${{vars.IMAGE_NAME}}
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    if: ${{github.event.workflow_run.conclusion == 'success'}}
+
+  push-artifact-to-duckerhub:
+    runs-on: ubuntu@latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: login to dockerhub
+        uses: docker/login-action@v3
+        with:
+            username: ${{vars.DOCKER_HUB_USERNAME}}
+            password: ${{secrets.GITHUB_TOKEN}}
+
+      - name: build image
+        run: |
+          docker build -f node.dockerfile -t ${{env.IMAGE_NAME}}:latest .
+
+      - name: push to docker hub
+        run: |
+          docker image push ${{env.IMAGE_NAME}}
