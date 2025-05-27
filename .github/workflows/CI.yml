@@ -3,7 +3,7 @@ name: visitor-backend-CI
 on:
   push:
     branches:
-      - "development"
+      - development
       - main
 
 jobs:
