@@ -1,8 +1,12 @@
+import "dotenv/config"
+
 const connectionConfig = {
-  development: {
+  development: { 
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USER,
     database: process.env.MYSQL_DB_NAME,
+    password: process.env.MYSQL_PASSWORD,
+    port: 3306
   },
   prod: {
     host: process.env.AMAZON_RDS_HOST,

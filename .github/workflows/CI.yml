@@ -1,0 +1,19 @@
+name: visitor-backend-CI
+
+on:
+  push:
+    branches:
+      - "development"
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: run test suit
+        run: |
+          echo "Running tests..."
+          npm ci
+          npm run test
