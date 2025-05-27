@@ -34,7 +34,7 @@ jobs:
 
       - name: build image
         run: |
-          docker build -f node.dockerfile -t ${{env.IMAGE_NAME}}:latest .
+          docker image build -f node.dockerfile -t ${{env.IMAGE_NAME}} .
 
       - name: push to docker hub
         run: |
