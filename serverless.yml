@@ -1,4 +1,4 @@
-service: clickable
+service: visitor-api
 frameworkVersion: '3'
 
 provider:
