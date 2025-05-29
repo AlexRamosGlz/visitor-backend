@@ -9,7 +9,6 @@ export function ErrorHandler(message = "runtime error", error) {
   };
 
   
-
   console.error(error);
 
   return(JSON.stringify(errorStack));
