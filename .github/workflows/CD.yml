@@ -45,7 +45,7 @@ jobs:
 
     steps:
       - name: serverless deploy
-        run: ls -la
+        run: pwd
         # uses: serverless/github-action@v3.2
         # with:
         #   args: -c "cd . && serverless deploy"
