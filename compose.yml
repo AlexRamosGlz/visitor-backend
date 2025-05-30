@@ -42,6 +42,7 @@ services:
       - PMA_ARBITRARY=1
     ports:
       - 80:80
+    entrypoint: ./mysql-entrypoint.sh
 
 volumes:
   visitor-db-data:
