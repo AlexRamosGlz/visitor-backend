@@ -5,4 +5,5 @@ node.dockerfile
 README.md
 .gitignore
 .dockerignore
-*.sh
+**.sh
+**.sql

@@ -21,16 +21,18 @@ services:
   db:
     image: "mysql:latest"
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - visitor-db-data:/var/lib/mysql
+      - ./visitor-dump.sql:/home/visitor-dump.sql
     networks:
       - visitor-dev-network
     environment:
       - MYSQL_ROOT_PASSWORD=12345
       - MYSQL_DATABASE=test
-      - MYSQL_USER=admin
+      - MYSQL_USER=root
       - MYSQL_PASSWORD=12345
+    #entrypoint: ["mysql", "-u", "root", "-p12345", "<", "/home/visitor-dump.sql"]
 
   phpmyadmin:
     image: phpmyadmin:latest
@@ -42,7 +44,6 @@ services:
       - PMA_ARBITRARY=1
     ports:
       - 80:80
-    entrypoint: ./mysql-entrypoint.sh
 
 volumes:
   visitor-db-data:
