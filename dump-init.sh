@@ -7,11 +7,7 @@
 ##################################################################
 
 USER=root
-PASSWORD=15100293
+PASSWORD=12345
 LOCAL_DB_NAME=test
 
-[ -f ./visitor-dump.sql ] && rm ./visitor-dump.sql
-
-mysqldump -u $USER -p$PASSWORD --databases $LOCAL_DB_NAME > visitor-dump.sql
-
-echo "$0 Initiated...."
+mysql -u $USER -p$PASSWORD $LOCAL_DB_NAME < /home/visitor-dump.sql

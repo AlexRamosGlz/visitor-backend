@@ -12,10 +12,9 @@ export async function get(req, res) {
   const baseLog = "[get.get()]"
 
   try {
-    const query = await exec("SELECT COUNT(id) AS count FROM USERS");
-    asd
-    return response.succes(res, req.reqID, query, SUCCES_CODES.ok);
+    const count = await exec("SELECT COUNT(id) AS count FROM USERS");
+    return response.succes(res, req.reqID, count, SUCCES_CODES.ok);
   } catch (error) {
-    return response.error(res, req.reqID, ErrorHandler(baseLog, error), ERROR_CODES.bad_request);
+    return response.error(res, req.reqID, error, ERROR_CODES.bad_request);
   }
 }

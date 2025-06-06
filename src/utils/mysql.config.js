@@ -6,7 +6,7 @@ const connectionConfig = {
     user: process.env.MYSQL_USER,
     database: process.env.MYSQL_DB_NAME,
     password: process.env.MYSQL_PASSWORD,
-    port: 3306
+    port: 3307
   },
   prod: {
     host: process.env.AMAZON_RDS_HOST,

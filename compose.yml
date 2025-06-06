@@ -1,30 +1,31 @@
 services:
-  # api:
-  #   build:
-  #     context: .
-  #     dockerfile: node.dockerfile
-  #   image: node-custom
-  #   volumes:
-  #     - ./src:/app/src
-  #   ports:
-  #     - "8080:8080"
-  #   networks:
-  #     - visitor-dev-network
-  #   environment:
-  #     - MYSQL_HOST=host.docker.internal
-  #     - MYSQL_USER=admin
-  #     - MYSQL_DB_NAME=test
-  #     - ENVIROMENT=development
-  #     - MYSQL_PASSWORD=12345
-  #   command: ["npm", "run", "start"]
+  api:
+    build:
+      context: .
+      dockerfile: node.dockerfile
+    image: node-custom
+    volumes:
+      - ./src:/app/src
+    ports:
+      - "8080:8080"
+    networks:
+      - visitor-dev-network
+    environment:
+      - MYSQL_HOST=host.docker.internal
+      - MYSQL_USER=root
+      - MYSQL_DB_NAME=test
+      - ENVIROMENT=development
+      - MYSQL_PASSWORD=12345
+    command: ["npm", "run", "start"]
 
   db:
-    image: "mysql:latest"
+    image: mysql:latest
     ports:
       - "3307:3306"
     volumes:
       - visitor-db-data:/var/lib/mysql
       - ./visitor-dump.sql:/home/visitor-dump.sql
+      - ./dump-init.sh:/home/dump-init.sh
     networks:
       - visitor-dev-network
     environment:
@@ -32,7 +33,7 @@ services:
       - MYSQL_DATABASE=test
       - MYSQL_USER=root
       - MYSQL_PASSWORD=12345
-    #entrypoint: ["mysql", "-u", "root", "-p12345", "<", "/home/visitor-dump.sql"]
+    
 
   phpmyadmin:
     image: phpmyadmin:latest

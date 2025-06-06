@@ -14,6 +14,7 @@ async function connect() {
     return connection;
   } catch (error) {
     ErrorHandler(baseLog, error);
+    throw error;
   }
 }
 
@@ -27,6 +28,7 @@ async function exec(query) {
     return fields[0];
   } catch (error) {
     ErrorHandler(baseLog, error);
+    throw error;
   }
 }
 
