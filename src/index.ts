@@ -1,11 +1,22 @@
 import { AppDataSource } from "./data-source"
 import { Count } from "./entities/Count"
+import express from "express"
+import router from "routes/router"
 
 AppDataSource.initialize().then(async () => {
     console.log("Loading users from the database...")
     const users = await AppDataSource.manager.find(Count)
     console.log("Loaded users: ", users)
 
-    console.log("Here you can setup and run express / fastify / any other framework.")
+    const app = express()
 
-}).catch(error => console.log(error))
+    app.use(express.json())
+    app.use(router)
+
+    app.listen(3000, () => {
+        console.log("Server is running on port 3000")
+    })
+
+}).catch((error: Error) => {
+    console.log(error)
+})
