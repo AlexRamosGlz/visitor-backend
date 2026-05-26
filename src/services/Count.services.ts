@@ -18,8 +18,8 @@ export class CountServices {
         }
     }
 
-    async updateCount(count: number): Promise<ICount> {
-        const countEntity = await this.respository.findOneBy({ id: 1 })
+    async updateCount(id: number = 1,count: number): Promise<ICount> {
+        const countEntity = await this.respository.findOneBy({ id: id })
 
         if(!countEntity) {
             throw new Error("Count not found")
@@ -33,3 +33,5 @@ export class CountServices {
         }
     }
 }
+
+export default new CountServices()

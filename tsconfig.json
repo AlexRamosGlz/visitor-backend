@@ -15,8 +15,10 @@
          "@routes/*": ["./src/routes/*"],
          "@services/*": ["./src/services/*"],
          "@interfaces/*": ["./src/interfaces/*"],
+         "@middleware/*": ["./src/middleware/*"],
+         "@lib/*": ["./src/lib/*"],
          "*": ["./src/*"]
       },
-      "types": ["node"]
+      "types": ["node"],
    }
 }

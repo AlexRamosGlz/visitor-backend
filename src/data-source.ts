@@ -1,6 +1,6 @@
 import "reflect-metadata"
 import { DataSource } from "typeorm"
-import { User } from "./entities/Count"
+import { Count } from "./entities/Count"
 import 'dotenv/config';
 
 const DATA_SOURCE_CONFIG = {
@@ -12,22 +12,22 @@ const DATA_SOURCE_CONFIG = {
     database: process.env.DB_NAME || "typeorm",
     synchronize: true,
     logging: false,
-    entities: [User],
+    entities: [Count],
     migrations: [],
     subscribers: [],
 }
 
 
 export const AppDataSource = new DataSource({
-    type: "postgres",
-    host: "localhost",
-    port: 5432,
-    username: "",
-    password: "password",
-    database: "typeorm",
+    type: DATA_SOURCE_CONFIG.type as "postgres",
+    host: DATA_SOURCE_CONFIG.host,
+    port: DATA_SOURCE_CONFIG.port,
+    username: DATA_SOURCE_CONFIG.username,
+    password: DATA_SOURCE_CONFIG.password,
+    database: DATA_SOURCE_CONFIG.database,
     synchronize: true,
     logging: false,
-    entities: [User],
+    entities: DATA_SOURCE_CONFIG.entities,
     migrations: [],
     subscribers: [],
 })

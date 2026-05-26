@@ -1,11 +1,13 @@
+import "reflect-metadata"
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+
 
 @Entity()
 export class Count {
 
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn({ type: "integer" })
     id: number
 
-    @Column()
+    @Column({ type: "integer" })
     count: number
 }
