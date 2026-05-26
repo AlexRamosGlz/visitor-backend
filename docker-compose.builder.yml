@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+
+  builder:
+    image: node:18-alpine
+    volumes:
+      - ${REPO_PATH}:/backend
+    working_dir: /backend
+
+  install:
+    extends:
+      service: builder
+    command: npm install
+
+
+
