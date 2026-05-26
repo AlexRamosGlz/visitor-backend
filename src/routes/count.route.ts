@@ -4,7 +4,7 @@ import { countMiddleware } from "@middleware/count.middleware";
 
 export const countRouter = Router()
 
-countRouter.get("/", (request: Request, response: Response) =>
+countRouter.get("/:id", (request: Request, response: Response) =>
     new CountController().get(request, response)
 )
 

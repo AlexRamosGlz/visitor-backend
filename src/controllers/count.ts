@@ -1,56 +1,53 @@
 import { Request, Response } from "express";
 import { IController } from "@interfaces/controller";
 import { ICount } from "@interfaces/count";
-import { IResponseError, IResponseSuccess } from "@interfaces/response";
 import CountService from "@services/Count.services";
 import { createSuccessResponse, createErrorResponse } from "@lib/responses";
+import { HTTP_STATUS_CODES, HTTP_STATUS_MESSAGES } from "@lib/constants/httpStatus";
 
 export class CountController implements IController<ICount> {
   async get(
     request: Request,
     response: Response,
-  ): Promise<Response<IResponseSuccess<ICount>>> | Promise<Response<IResponseError>> {
+    ): Promise<Response> {
     try {
-      const count = await CountService.getCount();
+      const id = request.params.id
+      ? parseInt(request.params.id as string, 10)
+      : 1;
+      const count = await CountService.getCount(id);
 
-      return createSuccessResponse(response, count, "count retrieved", 200);
-    } catch (error) {
-      return createErrorResponse(response, "count not found", "Not Found", 404);
+      return createSuccessResponse<ICount>(response, count, "count retrieved", HTTP_STATUS_CODES.OK);
+    } catch (error: any) {
+      return createErrorResponse(response, error.message, HTTP_STATUS_MESSAGES.NOT_FOUND, HTTP_STATUS_CODES.NOT_FOUND);
     }
   }
 
   async post(
     request: Request,
     response: Response,
-  ): Promise<Response<IResponseSuccess<ICount>>> {
-    return createSuccessResponse(response, null, "count created", 201);
+  ): Promise<Response> {
+    return createSuccessResponse(response, null, "count created", HTTP_STATUS_CODES.CREATED);
   }
 
   async patch(
     request: Request,
     response: Response,
-  ): Promise<Response<IResponseSuccess<ICount>>> {
+  ): Promise<Response> {
     const id = request.params.id
       ? parseInt(request.params.id as string, 10)
       : 1;
-    const { count } = request.body;
-    console.log("Received count update request with id:", id, "and count:", count);
     try {
-      const result = await CountService.updateCount(id, count);
-      return createSuccessResponse(response, result, "count updated", 200);
-    } catch (error) {
-      return response.status(404).json({
-        message: "count not found",
-        code: 404,
-        error: "Not Found",
-      });
+      const result = await CountService.updateCount(id);
+      return createSuccessResponse<ICount>(response, result, "count updated", HTTP_STATUS_CODES.OK);
+    } catch (error: any) {
+      return createErrorResponse(response, error.message, HTTP_STATUS_MESSAGES.NOT_FOUND, HTTP_STATUS_CODES.NOT_FOUND);
     }
   }
 
   async delete(
     request: Request,
     response: Response,
-  ): Promise<Response<IResponseSuccess<ICount>>> {
-    return response.status(200).json({ message: "count deleted" });
+  ): Promise<Response> {
+    return createSuccessResponse(response, null, "count deleted", HTTP_STATUS_CODES.OK);
   }
 }

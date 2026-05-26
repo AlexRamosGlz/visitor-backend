@@ -6,6 +6,10 @@ export const countRepository = AppDataSource.getRepository(Count);
 export class CountRepository {
 
     async getCount(): Promise<Count> {
-        return countRepository.findOne({ where: { id: 1 } })
+        const countEntity = await countRepository.findOne({ where: { id: 1 } })
+        if(!countEntity) {
+            throw new Error("Count entity with id 1 not found")
+        }
+        return countEntity
     }
 }
