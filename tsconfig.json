@@ -1,0 +1,25 @@
+{
+   "compilerOptions": {
+      "lib": [
+         "es2023", "dom"
+      ],
+      "target": "es2022",
+      "module": "commonjs",
+      "outDir": "./dist",
+      "rootDir": "./src",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "strictPropertyInitialization": false,
+      "sourceMap": true,
+      "paths": {
+         "@entities/*": ["./src/entities/*"],
+         "@routes/*": ["./src/routes/*"],
+         "@services/*": ["./src/services/*"],
+         "@interfaces/*": ["./src/interfaces/*"],
+         "@middleware/*": ["./src/middleware/*"],
+         "@lib/*": ["./src/lib/*"],
+         "*": ["./src/*"]
+      },
+      "types": ["node"],
+   }
+}

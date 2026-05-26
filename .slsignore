@@ -1,9 +1,0 @@
-**.vscode
-**.github
-compose.yml
-node.dockerfile
-README.md
-.gitignore
-.dockerignore
-**.sh
-**.sql
