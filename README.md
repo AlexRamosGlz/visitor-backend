@@ -1,5 +1,10 @@
+# Visitor Backend
 
+Backend for my app "Visitor" meant to showcase my skills and knoledge on Software Development, DevOps and Cloud engineering
 
+----
+
+```
 Visitor_backend
 ├── docker-compose.builder.yml
 ├── docker-compose.dev.yml
@@ -33,3 +38,4 @@ Visitor_backend
 └── tsconfig.json
 
 11 directories, 20 files
+```
