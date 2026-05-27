@@ -1,1 +1,10 @@
 node_modules
+
+# Ignorar archivos de docker
+.dockerignore
+*.yml
+
+# Ignorar github
+.git
+.gitignore
+.github
