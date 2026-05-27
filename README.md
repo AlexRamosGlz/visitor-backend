@@ -1,7 +1,35 @@
-# Awesome Project Build with TypeORM
 
-Steps to run this project:
 
-1. Run `npm i` command
-2. Setup database settings inside `data-source.ts` file
-3. Run `npm start` command
+Visitor_backend
+├── docker-compose.builder.yml
+├── docker-compose.dev.yml
+├── package.json
+├── package-lock.json
+├── README.md
+├── src
+│   ├── controllers
+│   │   └── count.ts
+│   ├── data-source.ts
+│   ├── entities
+│   │   └── Count.ts
+│   ├── index.ts
+│   ├── interfaces
+│   │   ├── controller.ts
+│   │   ├── count.ts
+│   │   └── response.ts
+│   ├── lib
+│   │   ├── constants
+│   │   │   └── httpStatus.ts
+│   │   └── responses.ts
+│   ├── middleware
+│   │   └── count.middleware.ts
+│   ├── repositories
+│   │   └── count.repository.ts
+│   ├── routes
+│   │   ├── count.route.ts
+│   │   └── router.ts
+│   └── services
+│       └── Count.services.ts
+└── tsconfig.json
+
+11 directories, 20 files

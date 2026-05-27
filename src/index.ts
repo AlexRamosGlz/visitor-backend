@@ -1,8 +1,8 @@
 import "reflect-metadata";
 import { AppDataSource } from "./data-source"
-import { Count } from "./entities/Count"
+import { Count } from "@entities/Count"
 import express from "express"
-import router from "routes/router"
+import router from "@routes/router"
 import cors from "cors"
 
 AppDataSource.initialize().then(async () => {

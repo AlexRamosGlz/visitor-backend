@@ -5,12 +5,14 @@
       ],
       "target": "es2022",
       "module": "commonjs",
+      "baseUrl": ".",
       "outDir": "./dist",
       "rootDir": "./src",
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
       "strictPropertyInitialization": false,
       "sourceMap": true,
+      "esModuleInterop": true,
       "paths": {
          "@entities/*": ["./src/entities/*"],
          "@routes/*": ["./src/routes/*"],
@@ -21,5 +23,6 @@
          "*": ["./src/*"]
       },
       "types": ["node"],
+      "strict": true
    }
 }
