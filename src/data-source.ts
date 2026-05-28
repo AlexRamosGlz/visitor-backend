@@ -1,7 +1,12 @@
 import "reflect-metadata"
 import { DataSource } from "typeorm"
 import { Count } from "./entities/Count"
-import 'dotenv/config';
+import dotenv from "dotenv"
+import path from "path"
+
+dotenv.config({
+    path: process.env.DOTENV_CONFIG_DATA || path.join(__dirname, "../.env")
+})
 
 const DATA_SOURCE_CONFIG = {
     type: "postgres",
@@ -12,7 +17,7 @@ const DATA_SOURCE_CONFIG = {
     database: process.env.DB_NAME || "typeorm",
     synchronize: true,
     logging: false,
-    entities: ['src/entities/*.ts'],
+    entities: [Count],
     migrations: [],
     subscribers: [],
 }

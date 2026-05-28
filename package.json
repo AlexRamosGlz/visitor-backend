@@ -2,17 +2,17 @@
    "name": "visitor-backend",
    "version": "0.0.1",
    "description": "Awesome project developed with TypeORM.",
-   "type": "module",
    "devDependencies": {
       "@types/cors": "^2.8.19",
       "@types/express": "^5.0.6",
       "@types/node": "^20.19.41",
-      "cors": "^2.8.6",
       "ts-node": "^10.9.2",
       "tsx": "^4.22.3",
+      "tsc-alias": "^1.8.16",
       "typescript": "^5.9.3"
    },
    "dependencies": {
+      "cors": "^2.8.6",
       "dotenv": "^17.4.2",
       "express": "^5.2.1",
       "pg": "^8.21.0",
@@ -22,8 +22,10 @@
    "scripts": {
       "start": "tsx --watch src/index.ts",
       "typeorm": "typeorm-ts-node-commonjs",
-      "build": "tsc",
+      "build": "tsc && tsc-alias",
       "debug": "node --inspect=0.0.0.0:9229 --import tsx src/index.ts",
-      "docker:up": "docker compose -f docker-compose.dev.yml up --build"
+      "docker:dev:up": "docker compose --env-file .env -f docker-compose.dev.yml up --build",
+      "docker:prod:up": "npm run build && docker compose --env-file prod.env -f docker-compose.prod.yml up --build",
+      "start:prod": "node dist/index.js"
    }
 }

@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  visitor_backend:
+    build:
+      context: .
+      dockerfile: visitor_backend.prod.dockerfile
+    ports:
+      - ${PORT}:8000
+    environment:
+      - DOTENV_CONFIG_DATA=/run/secrets/env_variables
+    secrets:
+      - env_variables
+    networks:
+      - visitor_network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+secrets:
+  env_variables:
+    file: prod.env
+
+networks:
+  visitor_network:
+    driver: bridge
