@@ -12,7 +12,7 @@ const DATA_SOURCE_CONFIG = {
     database: process.env.DB_NAME || "typeorm",
     synchronize: true,
     logging: false,
-    entities: [Count],
+    entities: ['src/entities/*.ts'],
     migrations: [],
     subscribers: [],
 }

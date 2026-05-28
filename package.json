@@ -23,6 +23,7 @@
       "start": "tsx --watch src/index.ts",
       "typeorm": "typeorm-ts-node-commonjs",
       "build": "tsc",
-      "debug": "node --inspect=0.0.0.0:9229 --import tsx src/index.ts"
+      "debug": "node --inspect=0.0.0.0:9229 --import tsx src/index.ts",
+      "docker:up": "docker compose -f docker-compose.dev.yml up --build"
    }
 }
