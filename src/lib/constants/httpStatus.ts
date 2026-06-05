@@ -12,6 +12,9 @@ export const HTTP_STATUS_CODES = {
     METHOD_NOT_ALLOWED: 405,
     REQUEST_TIMEOUT: 408,
     CONFLICT: 409,
+
+    // Internal Server Errors
+    INTERNAL_SERVER_ERROR: 500
 }
 
 export const HTTP_STATUS_MESSAGES = {

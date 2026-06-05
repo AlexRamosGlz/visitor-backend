@@ -6,3 +6,8 @@ export interface ICount {
 export interface ICountPayload {
     count: number
 }
+
+export interface ICountError {
+    message: string,
+    code?: number
+}

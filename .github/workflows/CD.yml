@@ -40,16 +40,13 @@ jobs:
         run: |
           docker image push ${{env.IMAGE_NAME}}
 
-  deply-to-aws-lambda:
+  deploy-to-ec2:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - uses: actions/checkout@v3
-      - name: serverless deploy
-        uses: serverless/github-action@v3.2
-        with:
-          args: -c "serverless plugin install --name serverless-ignore && serverless deploy"
-          entrypoint: /bin/sh
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - uses: actions/checkout@v4
+      
+      - name: build
+        run: |
+          npm i && npm run build
+          

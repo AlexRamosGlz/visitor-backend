@@ -5,11 +5,11 @@ import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
 @Entity()
 export class Count {
 
-    @PrimaryGeneratedColumn({ type: "integer" })
+    @PrimaryGeneratedColumn({ type: "int"})
     id: number
 
     @Column({ type: "text"})
-    hashedIp: string
+    ipAddress: string
 
     @Column({ type: "integer" })
     count: number

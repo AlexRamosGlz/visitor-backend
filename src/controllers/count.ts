@@ -14,7 +14,7 @@ export class CountController implements IController<ICount> {
       const id = request.params.id
       ? parseInt(request.params.id as string, 10)
       : 1;
-      const count = await CountService.getCount(id);
+      const count = await CountService.getCount(request.ip!);
 
       return createSuccessResponse<ICount>(response, count, "count retrieved", HTTP_STATUS_CODES.OK);
     } catch (error: any) {
@@ -37,7 +37,7 @@ export class CountController implements IController<ICount> {
       ? parseInt(request.params.id as string, 10)
       : 1;
     try {
-      const result = await CountService.updateCount(id);
+      const result = await CountService.updateCount(request.ip!);
       return createSuccessResponse<ICount>(response, result, "count updated", HTTP_STATUS_CODES.OK);
     } catch (error: any) {
       return createErrorResponse(response, error.message, HTTP_STATUS_MESSAGES.NOT_FOUND, HTTP_STATUS_CODES.NOT_FOUND);

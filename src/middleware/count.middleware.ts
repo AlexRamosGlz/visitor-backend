@@ -10,11 +10,6 @@ class CountMiddleware {
         if(!req.ip) {
             return createErrorResponse(res, "IP address unavailable", HTTP_STATUS_MESSAGES.BAD_REQUEST, HTTP_STATUS_CODES.BAD_REQUEST);
         }
-
-        const hmac = crypto.createHmac("sha256", process.env.SECRET!)
-        hmac.update(req.ip);
-        const hash = hmac.digest('hex');
-        req.body.hashedIp = hash;
         
         next()
     }
