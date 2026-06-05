@@ -26,7 +26,11 @@ export class CountController implements IController<ICount> {
     request: Request,
     response: Response,
   ): Promise<Response> {
-    return createSuccessResponse(response, null, "count created", HTTP_STATUS_CODES.CREATED);
+    try {
+
+    }catch(error: any) {
+      return createErrorResponse(response, error.message, HTTP_STATUS_MESSAGES.INTERNAL_SERVER_ERROR, HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
+    }
   }
 
   async patch(
