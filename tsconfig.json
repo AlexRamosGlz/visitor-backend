@@ -3,11 +3,12 @@
       "lib": [
          "es2023", "dom"
       ],
-      "target": "es2022",
-      "module": "commonjs",
+      "target": "ES2023",
+      "module": "ESNext",
+      "moduleResolution": "bundler"
       "baseUrl": ".",
       "outDir": "./dist",
-      "rootDir": "./src",
+      "rootDir": ".",
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
       "strictPropertyInitialization": false,
@@ -20,10 +21,11 @@
          "@interfaces/*": ["./src/interfaces/*"],
          "@middleware/*": ["./src/middleware/*"],
          "@lib/*": ["./src/lib/*"],
-         "*": ["./src/*"]
+         "*": ["./src/*"],
+         "generated": ["./generated/*"]
       },
       "types": ["node"],
       "strict": true,
-      "moduleResolution": "node",
+      "ignoreDeprecations": "6.0"
    }
 }

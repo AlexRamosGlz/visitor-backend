@@ -6,3 +6,6 @@ tmp/
 temp/
 
 *.env
+
+data/
+/generated/prisma

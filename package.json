@@ -1,17 +1,22 @@
 {
    "name": "visitor-backend",
    "version": "0.0.1",
-   "description": "Awesome project developed with TypeORM.",
+   "description": "Backend for my DevOps portfolio app Visitor",
+   "type": "module",
    "devDependencies": {
       "@types/cors": "^2.8.19",
       "@types/express": "^5.0.6",
       "@types/node": "^20.19.41",
+      "@types/pg": "^8.20.0",
+      "prisma": "^7.8.0",
       "ts-node": "^10.9.2",
-      "tsx": "^4.22.3",
       "tsc-alias": "^1.8.16",
+      "tsx": "^4.22.3",
       "typescript": "^5.9.3"
    },
    "dependencies": {
+      "@prisma/adapter-pg": "^7.8.0",
+      "@prisma/client": "^7.8.0",
       "cors": "^2.8.6",
       "dotenv": "^17.4.2",
       "express": "^5.2.1",

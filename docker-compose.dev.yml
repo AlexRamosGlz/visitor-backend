@@ -2,7 +2,7 @@ version: '3'
 
 services:
   visitor_backend:
-    image: node:18-alpine
+    image: node:latest
     container_name: visitor_backend
     volumes:
       - ${REPO_PATH}:/backend
