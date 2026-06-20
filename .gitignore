@@ -9,3 +9,5 @@ temp/
 
 data/
 /generated/prisma
+
+count.txt

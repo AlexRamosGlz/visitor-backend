@@ -8,7 +8,6 @@ datasource db {
 }
 
 model count {
-  count     Int
-  ipAddress String
-  id        Int    @id(map: "PK_64d8bf139274fe6d6db3affcb93") @default(autoincrement())
+  id    String @id @db.VarChar(40)
+  count Int?   @default(0)
 }

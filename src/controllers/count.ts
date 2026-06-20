@@ -1,57 +1,121 @@
 import { Request, Response } from "express";
 import { IController } from "@interfaces/controller";
-import { ICount } from "@interfaces/count";
-import CountService from "@services/Count.services";
+import { CountServiceError, ICount } from "@interfaces/count";
+import { countService } from "@services/Count.services";
 import { createSuccessResponse, createErrorResponse } from "@lib/responses";
-import { HTTP_STATUS_CODES, HTTP_STATUS_MESSAGES } from "@lib/constants/httpStatus";
+import {
+  HTTP_STATUS_CODES,
+  HTTP_STATUS_MESSAGES,
+} from "@lib/constants/httpStatus";
 
 export class CountController implements IController<ICount> {
-  async get(
-    request: Request,
-    response: Response,
-    ): Promise<Response> {
+  /**
+   * Controlador GET para obtener el conteo asociado a la cookie countId.
+   * @param request Objeto de solicitud Express.
+   * @param response Objeto de respuesta Express.
+   * @returns La respuesta HTTP con los datos del conteo o un error.
+   */
+  async get(request: Request, response: Response): Promise<Response> {
     try {
-      const id = request.params.id
-      ? parseInt(request.params.id as string, 10)
-      : 1;
-      const count = await CountService.getCount(request.ip!);
+      const { countId } = request.cookies;
 
-      return createSuccessResponse<ICount>(response, count, "count retrieved", HTTP_STATUS_CODES.OK);
+      const result = await countService.getCount(String(countId));
+
+      if (result instanceof CountServiceError) throw result;
+
+      return createSuccessResponse<ICount>(
+        response,
+        result,
+        "count retrieved",
+        HTTP_STATUS_CODES.OK,
+      );
     } catch (error: any) {
-      return createErrorResponse(response, error.message, HTTP_STATUS_MESSAGES.NOT_FOUND, HTTP_STATUS_CODES.NOT_FOUND);
+      return createErrorResponse(
+        response,
+        error.message,
+        HTTP_STATUS_MESSAGES.NOT_FOUND,
+        HTTP_STATUS_CODES.NOT_FOUND,
+      );
     }
   }
 
-  async post(
-    request: Request,
-    response: Response,
-  ): Promise<Response> {
+  /**
+   * Controlador POST para crear un nuevo conteo y establecer la cookie countId.
+   * @param request Objeto de solicitud Express.
+   * @param response Objeto de respuesta Express.
+   * @returns La respuesta HTTP indicando que el conteo fue creado.
+   */
+  async post(request: Request, response: Response): Promise<Response> {
     try {
+      const result = await countService.createCount();
 
-    }catch(error: any) {
-      return createErrorResponse(response, error.message, HTTP_STATUS_MESSAGES.INTERNAL_SERVER_ERROR, HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
-    }
-  }
+      if (result instanceof CountServiceError) {
+        throw result;
+      }
 
-  async patch(
-    request: Request,
-    response: Response,
-  ): Promise<Response> {
-    const id = request.params.id
-      ? parseInt(request.params.id as string, 10)
-      : 1;
-    try {
-      const result = await CountService.updateCount(request.ip!);
-      return createSuccessResponse<ICount>(response, result, "count updated", HTTP_STATUS_CODES.OK);
+      response.cookie("countId", result.countId, {
+        httpOnly: true,
+        sameSite: "lax",
+      });
+
+      return createSuccessResponse(
+        response,
+        null,
+        "Count creada correctamente",
+        HTTP_STATUS_CODES.CREATED,
+      );
     } catch (error: any) {
-      return createErrorResponse(response, error.message, HTTP_STATUS_MESSAGES.NOT_FOUND, HTTP_STATUS_CODES.NOT_FOUND);
+      return createErrorResponse(
+        response,
+        error.message,
+        HTTP_STATUS_MESSAGES.INTERNAL_SERVER_ERROR,
+        HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 
-  async delete(
-    request: Request,
-    response: Response,
-  ): Promise<Response> {
-    return createSuccessResponse(response, null, "count deleted", HTTP_STATUS_CODES.OK);
+  /**
+   * Controlador PATCH para incrementar el conteo asociado a la cookie countId.
+   * @param request Objeto de solicitud Express.
+   * @param response Objeto de respuesta Express.
+   * @returns La respuesta HTTP con el conteo actualizado o un error.
+   */
+  async patch(request: Request, response: Response): Promise<Response> {
+    const { countId } = request.cookies;
+
+    try {
+      const result = await countService.updateCount(countId);
+
+      if (result instanceof CountServiceError) throw result;
+
+      return createSuccessResponse<ICount>(
+        response,
+        result,
+        "count updated",
+        HTTP_STATUS_CODES.OK,
+      );
+    } catch (error: any) {
+      return createErrorResponse(
+        response,
+        error.message,
+        HTTP_STATUS_MESSAGES.NOT_FOUND,
+        HTTP_STATUS_CODES.NOT_FOUND,
+      );
+    }
+  }
+
+  /**
+   * Controlador DELETE para eliminar o limpiar el conteo asociado.
+   * @param request Objeto de solicitud Express.
+   * @param response Objeto de respuesta Express.
+   * @returns La respuesta HTTP indicando que el conteo fue eliminado.
+   */
+  async delete(request: Request, response: Response): Promise<Response> {
+    return createSuccessResponse(
+      response,
+      null,
+      "count deleted",
+      HTTP_STATUS_CODES.OK,
+    );
   }
 }
